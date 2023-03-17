@@ -1,0 +1,599 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+
+Grammar
+
+Rule 0     S' -> creation
+Rule 1     creation -> define_module set_parameters set_architecture end_module
+Rule 2     define_module -> DEFINE MOD_NAME LKEY
+Rule 3     end_module -> RKEY END MOD_NAME
+Rule 4     set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER
+Rule 5     set_architecture -> ARCHITECTURE COLON arch_expresions
+Rule 6     arch_expresions -> arch_expresion
+Rule 7     arch_expresions -> arch_expresions arch_expresion
+Rule 8     arch_expresion -> node_exp
+Rule 9     arch_expresion -> edge_exp
+Rule 10    arch_expresion -> connect_exp
+Rule 11    node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN
+Rule 12    edge_exp -> edge ID LPAREN NUMBER RPAREN
+Rule 13    connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN
+Rule 14    connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN
+Rule 15    connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN
+Rule 16    connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN
+
+Terminals, with rules where they appear
+
+ARCHITECTURE         : 5
+COLON                : 4 5
+COMA                 : 13 14 15 16
+COMMENT              : 
+DEFINE               : 2
+END                  : 3
+EQUALS               : 4 4 4 11
+ID                   : 11 12 13 13 14 14 15 16
+IN_PORT              : 14 15 15
+LKEY                 : 2
+LPAREN               : 11 12 13 14 15 16
+MOD_NAME             : 2 3 11
+NUMBER               : 4 4 4 11 12
+OUT_PORT             : 13 16 16
+PARAMETERS           : 4
+RKEY                 : 3
+RPAREN               : 11 12 13 14 15 16
+connect              : 13 14 15 16
+edge                 : 12
+error                : 
+input                : 4
+node                 : 11
+output               : 4
+this                 : 15 16
+width                : 4
+
+Nonterminals, with rules where they appear
+
+arch_expresion       : 6 7
+arch_expresions      : 5 7
+connect_exp          : 10
+creation             : 0
+define_module        : 1
+edge_exp             : 9
+end_module           : 1
+node_exp             : 8
+set_architecture     : 1
+set_parameters       : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . creation
+    (1) creation -> . define_module set_parameters set_architecture end_module
+    (2) define_module -> . DEFINE MOD_NAME LKEY
+
+    DEFINE          shift and go to state 3
+
+    creation                       shift and go to state 1
+    define_module                  shift and go to state 2
+
+state 1
+
+    (0) S' -> creation .
+
+
+
+state 2
+
+    (1) creation -> define_module . set_parameters set_architecture end_module
+    (4) set_parameters -> . PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER
+
+    PARAMETERS      shift and go to state 5
+
+    set_parameters                 shift and go to state 4
+
+state 3
+
+    (2) define_module -> DEFINE . MOD_NAME LKEY
+
+    MOD_NAME        shift and go to state 6
+
+
+state 4
+
+    (1) creation -> define_module set_parameters . set_architecture end_module
+    (5) set_architecture -> . ARCHITECTURE COLON arch_expresions
+
+    ARCHITECTURE    shift and go to state 8
+
+    set_architecture               shift and go to state 7
+
+state 5
+
+    (4) set_parameters -> PARAMETERS . COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER
+
+    COLON           shift and go to state 9
+
+
+state 6
+
+    (2) define_module -> DEFINE MOD_NAME . LKEY
+
+    LKEY            shift and go to state 10
+
+
+state 7
+
+    (1) creation -> define_module set_parameters set_architecture . end_module
+    (3) end_module -> . RKEY END MOD_NAME
+
+    RKEY            shift and go to state 12
+
+    end_module                     shift and go to state 11
+
+state 8
+
+    (5) set_architecture -> ARCHITECTURE . COLON arch_expresions
+
+    COLON           shift and go to state 13
+
+
+state 9
+
+    (4) set_parameters -> PARAMETERS COLON . input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER
+
+    input           shift and go to state 14
+
+
+state 10
+
+    (2) define_module -> DEFINE MOD_NAME LKEY .
+
+    PARAMETERS      reduce using rule 2 (define_module -> DEFINE MOD_NAME LKEY .)
+
+
+state 11
+
+    (1) creation -> define_module set_parameters set_architecture end_module .
+
+    $end            reduce using rule 1 (creation -> define_module set_parameters set_architecture end_module .)
+
+
+state 12
+
+    (3) end_module -> RKEY . END MOD_NAME
+
+    END             shift and go to state 15
+
+
+state 13
+
+    (5) set_architecture -> ARCHITECTURE COLON . arch_expresions
+    (6) arch_expresions -> . arch_expresion
+    (7) arch_expresions -> . arch_expresions arch_expresion
+    (8) arch_expresion -> . node_exp
+    (9) arch_expresion -> . edge_exp
+    (10) arch_expresion -> . connect_exp
+    (11) node_exp -> . node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN
+    (12) edge_exp -> . edge ID LPAREN NUMBER RPAREN
+    (13) connect_exp -> . connect LPAREN ID OUT_PORT COMA ID RPAREN
+    (14) connect_exp -> . connect LPAREN ID COMA ID IN_PORT RPAREN
+    (15) connect_exp -> . connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN
+    (16) connect_exp -> . connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN
+
+    node            shift and go to state 21
+    edge            shift and go to state 22
+    connect         shift and go to state 23
+
+    arch_expresions                shift and go to state 16
+    arch_expresion                 shift and go to state 17
+    node_exp                       shift and go to state 18
+    edge_exp                       shift and go to state 19
+    connect_exp                    shift and go to state 20
+
+state 14
+
+    (4) set_parameters -> PARAMETERS COLON input . EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER
+
+    EQUALS          shift and go to state 24
+
+
+state 15
+
+    (3) end_module -> RKEY END . MOD_NAME
+
+    MOD_NAME        shift and go to state 25
+
+
+state 16
+
+    (5) set_architecture -> ARCHITECTURE COLON arch_expresions .
+    (7) arch_expresions -> arch_expresions . arch_expresion
+    (8) arch_expresion -> . node_exp
+    (9) arch_expresion -> . edge_exp
+    (10) arch_expresion -> . connect_exp
+    (11) node_exp -> . node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN
+    (12) edge_exp -> . edge ID LPAREN NUMBER RPAREN
+    (13) connect_exp -> . connect LPAREN ID OUT_PORT COMA ID RPAREN
+    (14) connect_exp -> . connect LPAREN ID COMA ID IN_PORT RPAREN
+    (15) connect_exp -> . connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN
+    (16) connect_exp -> . connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN
+
+    RKEY            reduce using rule 5 (set_architecture -> ARCHITECTURE COLON arch_expresions .)
+    node            shift and go to state 21
+    edge            shift and go to state 22
+    connect         shift and go to state 23
+
+    arch_expresion                 shift and go to state 26
+    node_exp                       shift and go to state 18
+    edge_exp                       shift and go to state 19
+    connect_exp                    shift and go to state 20
+
+state 17
+
+    (6) arch_expresions -> arch_expresion .
+
+    node            reduce using rule 6 (arch_expresions -> arch_expresion .)
+    edge            reduce using rule 6 (arch_expresions -> arch_expresion .)
+    connect         reduce using rule 6 (arch_expresions -> arch_expresion .)
+    RKEY            reduce using rule 6 (arch_expresions -> arch_expresion .)
+
+
+state 18
+
+    (8) arch_expresion -> node_exp .
+
+    node            reduce using rule 8 (arch_expresion -> node_exp .)
+    edge            reduce using rule 8 (arch_expresion -> node_exp .)
+    connect         reduce using rule 8 (arch_expresion -> node_exp .)
+    RKEY            reduce using rule 8 (arch_expresion -> node_exp .)
+
+
+state 19
+
+    (9) arch_expresion -> edge_exp .
+
+    node            reduce using rule 9 (arch_expresion -> edge_exp .)
+    edge            reduce using rule 9 (arch_expresion -> edge_exp .)
+    connect         reduce using rule 9 (arch_expresion -> edge_exp .)
+    RKEY            reduce using rule 9 (arch_expresion -> edge_exp .)
+
+
+state 20
+
+    (10) arch_expresion -> connect_exp .
+
+    node            reduce using rule 10 (arch_expresion -> connect_exp .)
+    edge            reduce using rule 10 (arch_expresion -> connect_exp .)
+    connect         reduce using rule 10 (arch_expresion -> connect_exp .)
+    RKEY            reduce using rule 10 (arch_expresion -> connect_exp .)
+
+
+state 21
+
+    (11) node_exp -> node . ID EQUALS MOD_NAME LPAREN NUMBER RPAREN
+
+    ID              shift and go to state 27
+
+
+state 22
+
+    (12) edge_exp -> edge . ID LPAREN NUMBER RPAREN
+
+    ID              shift and go to state 28
+
+
+state 23
+
+    (13) connect_exp -> connect . LPAREN ID OUT_PORT COMA ID RPAREN
+    (14) connect_exp -> connect . LPAREN ID COMA ID IN_PORT RPAREN
+    (15) connect_exp -> connect . LPAREN this IN_PORT COMA ID IN_PORT RPAREN
+    (16) connect_exp -> connect . LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN
+
+    LPAREN          shift and go to state 29
+
+
+state 24
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS . NUMBER output EQUALS NUMBER width EQUALS NUMBER
+
+    NUMBER          shift and go to state 30
+
+
+state 25
+
+    (3) end_module -> RKEY END MOD_NAME .
+
+    $end            reduce using rule 3 (end_module -> RKEY END MOD_NAME .)
+
+
+state 26
+
+    (7) arch_expresions -> arch_expresions arch_expresion .
+
+    node            reduce using rule 7 (arch_expresions -> arch_expresions arch_expresion .)
+    edge            reduce using rule 7 (arch_expresions -> arch_expresions arch_expresion .)
+    connect         reduce using rule 7 (arch_expresions -> arch_expresions arch_expresion .)
+    RKEY            reduce using rule 7 (arch_expresions -> arch_expresions arch_expresion .)
+
+
+state 27
+
+    (11) node_exp -> node ID . EQUALS MOD_NAME LPAREN NUMBER RPAREN
+
+    EQUALS          shift and go to state 31
+
+
+state 28
+
+    (12) edge_exp -> edge ID . LPAREN NUMBER RPAREN
+
+    LPAREN          shift and go to state 32
+
+
+state 29
+
+    (13) connect_exp -> connect LPAREN . ID OUT_PORT COMA ID RPAREN
+    (14) connect_exp -> connect LPAREN . ID COMA ID IN_PORT RPAREN
+    (15) connect_exp -> connect LPAREN . this IN_PORT COMA ID IN_PORT RPAREN
+    (16) connect_exp -> connect LPAREN . ID OUT_PORT COMA this OUT_PORT RPAREN
+
+    ID              shift and go to state 33
+    this            shift and go to state 34
+
+
+state 30
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS NUMBER . output EQUALS NUMBER width EQUALS NUMBER
+
+    output          shift and go to state 35
+
+
+state 31
+
+    (11) node_exp -> node ID EQUALS . MOD_NAME LPAREN NUMBER RPAREN
+
+    MOD_NAME        shift and go to state 36
+
+
+state 32
+
+    (12) edge_exp -> edge ID LPAREN . NUMBER RPAREN
+
+    NUMBER          shift and go to state 37
+
+
+state 33
+
+    (13) connect_exp -> connect LPAREN ID . OUT_PORT COMA ID RPAREN
+    (14) connect_exp -> connect LPAREN ID . COMA ID IN_PORT RPAREN
+    (16) connect_exp -> connect LPAREN ID . OUT_PORT COMA this OUT_PORT RPAREN
+
+    OUT_PORT        shift and go to state 38
+    COMA            shift and go to state 39
+
+
+state 34
+
+    (15) connect_exp -> connect LPAREN this . IN_PORT COMA ID IN_PORT RPAREN
+
+    IN_PORT         shift and go to state 40
+
+
+state 35
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS NUMBER output . EQUALS NUMBER width EQUALS NUMBER
+
+    EQUALS          shift and go to state 41
+
+
+state 36
+
+    (11) node_exp -> node ID EQUALS MOD_NAME . LPAREN NUMBER RPAREN
+
+    LPAREN          shift and go to state 42
+
+
+state 37
+
+    (12) edge_exp -> edge ID LPAREN NUMBER . RPAREN
+
+    RPAREN          shift and go to state 43
+
+
+state 38
+
+    (13) connect_exp -> connect LPAREN ID OUT_PORT . COMA ID RPAREN
+    (16) connect_exp -> connect LPAREN ID OUT_PORT . COMA this OUT_PORT RPAREN
+
+    COMA            shift and go to state 44
+
+
+state 39
+
+    (14) connect_exp -> connect LPAREN ID COMA . ID IN_PORT RPAREN
+
+    ID              shift and go to state 45
+
+
+state 40
+
+    (15) connect_exp -> connect LPAREN this IN_PORT . COMA ID IN_PORT RPAREN
+
+    COMA            shift and go to state 46
+
+
+state 41
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS . NUMBER width EQUALS NUMBER
+
+    NUMBER          shift and go to state 47
+
+
+state 42
+
+    (11) node_exp -> node ID EQUALS MOD_NAME LPAREN . NUMBER RPAREN
+
+    NUMBER          shift and go to state 48
+
+
+state 43
+
+    (12) edge_exp -> edge ID LPAREN NUMBER RPAREN .
+
+    node            reduce using rule 12 (edge_exp -> edge ID LPAREN NUMBER RPAREN .)
+    edge            reduce using rule 12 (edge_exp -> edge ID LPAREN NUMBER RPAREN .)
+    connect         reduce using rule 12 (edge_exp -> edge ID LPAREN NUMBER RPAREN .)
+    RKEY            reduce using rule 12 (edge_exp -> edge ID LPAREN NUMBER RPAREN .)
+
+
+state 44
+
+    (13) connect_exp -> connect LPAREN ID OUT_PORT COMA . ID RPAREN
+    (16) connect_exp -> connect LPAREN ID OUT_PORT COMA . this OUT_PORT RPAREN
+
+    ID              shift and go to state 49
+    this            shift and go to state 50
+
+
+state 45
+
+    (14) connect_exp -> connect LPAREN ID COMA ID . IN_PORT RPAREN
+
+    IN_PORT         shift and go to state 51
+
+
+state 46
+
+    (15) connect_exp -> connect LPAREN this IN_PORT COMA . ID IN_PORT RPAREN
+
+    ID              shift and go to state 52
+
+
+state 47
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER . width EQUALS NUMBER
+
+    width           shift and go to state 53
+
+
+state 48
+
+    (11) node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER . RPAREN
+
+    RPAREN          shift and go to state 54
+
+
+state 49
+
+    (13) connect_exp -> connect LPAREN ID OUT_PORT COMA ID . RPAREN
+
+    RPAREN          shift and go to state 55
+
+
+state 50
+
+    (16) connect_exp -> connect LPAREN ID OUT_PORT COMA this . OUT_PORT RPAREN
+
+    OUT_PORT        shift and go to state 56
+
+
+state 51
+
+    (14) connect_exp -> connect LPAREN ID COMA ID IN_PORT . RPAREN
+
+    RPAREN          shift and go to state 57
+
+
+state 52
+
+    (15) connect_exp -> connect LPAREN this IN_PORT COMA ID . IN_PORT RPAREN
+
+    IN_PORT         shift and go to state 58
+
+
+state 53
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width . EQUALS NUMBER
+
+    EQUALS          shift and go to state 59
+
+
+state 54
+
+    (11) node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN .
+
+    node            reduce using rule 11 (node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN .)
+    edge            reduce using rule 11 (node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN .)
+    connect         reduce using rule 11 (node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN .)
+    RKEY            reduce using rule 11 (node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN .)
+
+
+state 55
+
+    (13) connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN .
+
+    node            reduce using rule 13 (connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN .)
+    edge            reduce using rule 13 (connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN .)
+    connect         reduce using rule 13 (connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN .)
+    RKEY            reduce using rule 13 (connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN .)
+
+
+state 56
+
+    (16) connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT . RPAREN
+
+    RPAREN          shift and go to state 60
+
+
+state 57
+
+    (14) connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN .
+
+    node            reduce using rule 14 (connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN .)
+    edge            reduce using rule 14 (connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN .)
+    connect         reduce using rule 14 (connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN .)
+    RKEY            reduce using rule 14 (connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN .)
+
+
+state 58
+
+    (15) connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT . RPAREN
+
+    RPAREN          shift and go to state 61
+
+
+state 59
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS . NUMBER
+
+    NUMBER          shift and go to state 62
+
+
+state 60
+
+    (16) connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN .
+
+    node            reduce using rule 16 (connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN .)
+    edge            reduce using rule 16 (connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN .)
+    connect         reduce using rule 16 (connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN .)
+    RKEY            reduce using rule 16 (connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN .)
+
+
+state 61
+
+    (15) connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN .
+
+    node            reduce using rule 15 (connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN .)
+    edge            reduce using rule 15 (connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN .)
+    connect         reduce using rule 15 (connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN .)
+    RKEY            reduce using rule 15 (connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN .)
+
+
+state 62
+
+    (4) set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER .
+
+    ARCHITECTURE    reduce using rule 4 (set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER .)
+
