@@ -1,0 +1,31 @@
+DEFINE	axis_acc_squares {
+	
+	PARAMETERS:
+	
+		input = 1
+		output = 1
+		width = 32
+	
+	ARCHITECTURE:
+		
+		node split = axis_splitter_2(32)
+		edge aristaA(32)
+		edge aristaB(32)
+		connect(split.out1, aristaA)
+		connect(split.out2, aristaB)
+		
+		node mult = axis_multiplier(32)
+		connect(aristaA, mult.in1)
+		connect(aristaB, mult,in2)
+		edge aristaC(32)
+		connect(mult.out1, aristaC)
+		
+		node acc = axis_accumulator(32)
+		connect(aristaC, acc.in1)		
+		
+		
+		connect(this.in1, split.in1) 
+		connect(acc.out1, this.out1)
+
+} END axis_acc_squares
+
