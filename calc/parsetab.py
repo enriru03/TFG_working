@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ARCHITECTURE COLON COMA COMMENT DEFINE END EQUALS ID IN_PORT LKEY LPAREN MOD_NAME NUMBER OUT_PORT PARAMETERS RKEY RPAREN connect edge input node output this widthcreation : define_module set_parameters set_architecture end_moduledefine_module : DEFINE MOD_NAME LKEYend_module : RKEY END MOD_NAMEset_parameters : PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBERset_architecture : ARCHITECTURE COLON arch_expresionsarch_expresions : arch_expresion\n                      | arch_expresions arch_expresion arch_expresion : node_exp\n                      | edge_exp\n                      | connect_expnode_exp : node ID EQUALS MOD_NAME LPAREN NUMBER RPARENedge_exp : edge ID LPAREN NUMBER RPARENconnect_exp : connect LPAREN ID OUT_PORT COMA ID RPARENconnect_exp : connect LPAREN ID COMA ID IN_PORT RPARENconnect_exp : connect LPAREN this IN_PORT COMA ID IN_PORT RPARENconnect_exp : connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN'
+_lr_signature = 'ARCHITECTURE COLON COMA COMMENT DEFINE END EQUALS ID IN_PORT LKEY LPAREN MOD_NAME NUMBER OUT_PORT PARAMETERS RKEY RPAREN connect edge input node output this widthcreation : define_module set_parameters set_architecture end_moduledefine_module : DEFINE MOD_NAME LKEYend_module : RKEY END MOD_NAMEset_parameters : PARAMETERS COLON parameters_exp parameters_exp parameters_expparameters_exp : input EQUALS NUMBERparameters_exp : output EQUALS NUMBERparameters_exp : width EQUALS NUMBERset_architecture : ARCHITECTURE COLON arch_expresionsarch_expresions : arch_expresion\n                      | arch_expresion arch_expresionsarch_expresion : node_exp\n                      | edge_exp\n                      | connect_expnode_exp : node ID EQUALS MOD_NAME LPAREN NUMBER RPARENedge_exp : edge ID LPAREN NUMBER RPARENconnect_exp : connect LPAREN ID OUT_PORT COMA ID RPARENconnect_exp : connect LPAREN ID COMA ID IN_PORT RPARENconnect_exp : connect LPAREN this IN_PORT COMA ID IN_PORT RPARENconnect_exp : connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN'
     
-_lr_action_items = {'DEFINE':([0,],[3,]),'$end':([1,11,25,],[0,-1,-3,]),'PARAMETERS':([2,10,],[5,-2,]),'MOD_NAME':([3,15,31,],[6,25,36,]),'ARCHITECTURE':([4,62,],[8,-4,]),'COLON':([5,8,],[9,13,]),'LKEY':([6,],[10,]),'RKEY':([7,16,17,18,19,20,26,43,54,55,57,60,61,],[12,-5,-6,-8,-9,-10,-7,-12,-11,-13,-14,-16,-15,]),'input':([9,],[14,]),'END':([12,],[15,]),'node':([13,16,17,18,19,20,26,43,54,55,57,60,61,],[21,21,-6,-8,-9,-10,-7,-12,-11,-13,-14,-16,-15,]),'edge':([13,16,17,18,19,20,26,43,54,55,57,60,61,],[22,22,-6,-8,-9,-10,-7,-12,-11,-13,-14,-16,-15,]),'connect':([13,16,17,18,19,20,26,43,54,55,57,60,61,],[23,23,-6,-8,-9,-10,-7,-12,-11,-13,-14,-16,-15,]),'EQUALS':([14,27,35,53,],[24,31,41,59,]),'ID':([21,22,29,39,44,46,],[27,28,33,45,49,52,]),'LPAREN':([23,28,36,],[29,32,42,]),'NUMBER':([24,32,41,42,59,],[30,37,47,48,62,]),'this':([29,44,],[34,50,]),'output':([30,],[35,]),'OUT_PORT':([33,50,],[38,56,]),'COMA':([33,38,40,],[39,44,46,]),'IN_PORT':([34,45,52,],[40,51,58,]),'RPAREN':([37,48,49,51,56,58,],[43,54,55,57,60,61,]),'width':([47,],[53,]),}
+_lr_action_items = {'DEFINE':([0,],[3,]),'$end':([1,11,31,],[0,-1,-3,]),'PARAMETERS':([2,10,],[5,-2,]),'MOD_NAME':([3,18,40,],[6,31,44,]),'ARCHITECTURE':([4,36,37,38,39,],[8,-4,-5,-6,-7,]),'COLON':([5,8,],[9,13,]),'LKEY':([6,],[10,]),'RKEY':([7,19,20,21,22,23,32,50,59,60,62,64,65,],[12,-8,-9,-11,-12,-13,-10,-15,-14,-16,-17,-19,-18,]),'input':([9,14,27,37,38,39,],[15,15,15,-5,-6,-7,]),'output':([9,14,27,37,38,39,],[16,16,16,-5,-6,-7,]),'width':([9,14,27,37,38,39,],[17,17,17,-5,-6,-7,]),'END':([12,],[18,]),'node':([13,20,21,22,23,50,59,60,62,64,65,],[24,24,-11,-12,-13,-15,-14,-16,-17,-19,-18,]),'edge':([13,20,21,22,23,50,59,60,62,64,65,],[25,25,-11,-12,-13,-15,-14,-16,-17,-19,-18,]),'connect':([13,20,21,22,23,50,59,60,62,64,65,],[26,26,-11,-12,-13,-15,-14,-16,-17,-19,-18,]),'EQUALS':([15,16,17,33,],[28,29,30,40,]),'ID':([24,25,35,47,51,53,],[33,34,42,52,55,58,]),'LPAREN':([26,34,44,],[35,41,49,]),'NUMBER':([28,29,30,41,49,],[37,38,39,45,54,]),'this':([35,51,],[43,56,]),'OUT_PORT':([42,56,],[46,61,]),'COMA':([42,46,48,],[47,51,53,]),'IN_PORT':([43,52,58,],[48,57,63,]),'RPAREN':([45,54,55,57,61,63,],[50,59,60,62,64,65,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'creation':([0,],[1,]),'define_module':([0,],[2,]),'set_parameters':([2,],[4,]),'set_architecture':([4,],[7,]),'end_module':([7,],[11,]),'arch_expresions':([13,],[16,]),'arch_expresion':([13,16,],[17,26,]),'node_exp':([13,16,],[18,18,]),'edge_exp':([13,16,],[19,19,]),'connect_exp':([13,16,],[20,20,]),}
+_lr_goto_items = {'creation':([0,],[1,]),'define_module':([0,],[2,]),'set_parameters':([2,],[4,]),'set_architecture':([4,],[7,]),'end_module':([7,],[11,]),'parameters_exp':([9,14,27,],[14,27,36,]),'arch_expresions':([13,20,],[19,32,]),'arch_expresion':([13,20,],[20,20,]),'node_exp':([13,20,],[21,21,]),'edge_exp':([13,20,],[22,22,]),'connect_exp':([13,20,],[23,23,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,20 +27,23 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> creation","S'",1,None,None,None),
-  ('creation -> define_module set_parameters set_architecture end_module','creation',4,'p_full_module','axiParser.py',166),
-  ('define_module -> DEFINE MOD_NAME LKEY','define_module',3,'p_define_module','axiParser.py',171),
-  ('end_module -> RKEY END MOD_NAME','end_module',3,'p_end_module','axiParser.py',175),
-  ('set_parameters -> PARAMETERS COLON input EQUALS NUMBER output EQUALS NUMBER width EQUALS NUMBER','set_parameters',11,'p_set_parameters','axiParser.py',180),
-  ('set_architecture -> ARCHITECTURE COLON arch_expresions','set_architecture',3,'p_set_architecture','axiParser.py',185),
-  ('arch_expresions -> arch_expresion','arch_expresions',1,'p_architecture_expresions','axiParser.py',190),
-  ('arch_expresions -> arch_expresions arch_expresion','arch_expresions',2,'p_architecture_expresions','axiParser.py',191),
-  ('arch_expresion -> node_exp','arch_expresion',1,'p_arch_expresion','axiParser.py',196),
-  ('arch_expresion -> edge_exp','arch_expresion',1,'p_arch_expresion','axiParser.py',197),
-  ('arch_expresion -> connect_exp','arch_expresion',1,'p_arch_expresion','axiParser.py',198),
-  ('node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN','node_exp',7,'p_new_node','axiParser.py',204),
-  ('edge_exp -> edge ID LPAREN NUMBER RPAREN','edge_exp',5,'p_new_edge','axiParser.py',210),
-  ('connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN','connect_exp',7,'p_connect_outport','axiParser.py',216),
-  ('connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN','connect_exp',7,'p_connect_inport','axiParser.py',222),
-  ('connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN','connect_exp',8,'p_connect_module_input','axiParser.py',228),
-  ('connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN','connect_exp',8,'p_connect_module_output','axiParser.py',234),
+  ('creation -> define_module set_parameters set_architecture end_module','creation',4,'p_full_module','axiParser.py',205),
+  ('define_module -> DEFINE MOD_NAME LKEY','define_module',3,'p_define_module','axiParser.py',210),
+  ('end_module -> RKEY END MOD_NAME','end_module',3,'p_end_module','axiParser.py',214),
+  ('set_parameters -> PARAMETERS COLON parameters_exp parameters_exp parameters_exp','set_parameters',5,'p_set_parameters','axiParser.py',219),
+  ('parameters_exp -> input EQUALS NUMBER','parameters_exp',3,'p_param_exp_input','axiParser.py',224),
+  ('parameters_exp -> output EQUALS NUMBER','parameters_exp',3,'p_param_exp_output','axiParser.py',230),
+  ('parameters_exp -> width EQUALS NUMBER','parameters_exp',3,'p_param_exp_width','axiParser.py',236),
+  ('set_architecture -> ARCHITECTURE COLON arch_expresions','set_architecture',3,'p_set_architecture','axiParser.py',242),
+  ('arch_expresions -> arch_expresion','arch_expresions',1,'p_architecture_expresions','axiParser.py',248),
+  ('arch_expresions -> arch_expresion arch_expresions','arch_expresions',2,'p_architecture_expresions','axiParser.py',249),
+  ('arch_expresion -> node_exp','arch_expresion',1,'p_arch_expresion','axiParser.py',254),
+  ('arch_expresion -> edge_exp','arch_expresion',1,'p_arch_expresion','axiParser.py',255),
+  ('arch_expresion -> connect_exp','arch_expresion',1,'p_arch_expresion','axiParser.py',256),
+  ('node_exp -> node ID EQUALS MOD_NAME LPAREN NUMBER RPAREN','node_exp',7,'p_new_node','axiParser.py',262),
+  ('edge_exp -> edge ID LPAREN NUMBER RPAREN','edge_exp',5,'p_new_edge','axiParser.py',268),
+  ('connect_exp -> connect LPAREN ID OUT_PORT COMA ID RPAREN','connect_exp',7,'p_connect_outport','axiParser.py',274),
+  ('connect_exp -> connect LPAREN ID COMA ID IN_PORT RPAREN','connect_exp',7,'p_connect_inport','axiParser.py',280),
+  ('connect_exp -> connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN','connect_exp',8,'p_connect_module_input','axiParser.py',286),
+  ('connect_exp -> connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN','connect_exp',8,'p_connect_module_output','axiParser.py',292),
 ]
