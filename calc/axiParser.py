@@ -130,7 +130,7 @@ DEFINE	axis_acc_squares {
 		edge aristaC(32)
 		connect(mult.out1, aristaC)
 		
-        #Coemtnario de tal
+        #Comentario que el parseador ignora
         
 		node acc = axis_accumulator(32)
 		connect(aristaC, acc.in1)		
@@ -171,9 +171,9 @@ DEFINE	axis_acc_squares {
 # #Estructuras que crear y pasar
 # =============================================================================
 module = {}
-module["edge_dict"] = {}
-module["node_dict"] = {}
-module["conn_dict"] = {}
+module["edges"] = {}
+module["nodes"] = {}
+module["connexions"] = {}
 
 # =============================================================================
 # PARSER RULES AND ACTIONS:
@@ -182,23 +182,23 @@ module["conn_dict"] = {}
 def p_full_module(p):
     '''creation : define_module set_parameters set_architecture end_module'''
 
-    print("full_module: ultima accion")
+    # print("full_module: ultima accion")
     
 def p_define_module(p):
     'define_module : DEFINE MOD_NAME LKEY'
-    print("Creacion de modulo: ")
+    # print("Creacion de modulo: ")
     
     module["name"] = p[2]
 
 def p_end_module(p):
     'end_module : RKEY END MOD_NAME'
-    print("Terminacion de modulo: ")
+    # print("Terminacion de modulo: ")
 
 #permito que el orden sea intercambiable
 def p_set_parameters(p):
     '''set_parameters : PARAMETERS COLON parameters_exp parameters_exp parameters_exp'''
                             
-    print('Set de parametros:')
+    # print('Set de parametros:')
     
 def p_param_exp_input(p):
     '''parameters_exp : input EQUALS NUMBER'''
@@ -206,40 +206,40 @@ def p_param_exp_input(p):
     #Como NUMBER.value si devuelve entero, puedo cogerlo directamente
     module["input"] = p[3]
     
-    print("parameters input:", p[3])
+    # print("parameters input:", p[3])
     
 def p_param_exp_output(p):
     '''parameters_exp : output EQUALS NUMBER'''
     
     module["output"] = p[3]
       
-    print('parameters output:')
+    # print('parameters output:')
     
 def p_param_exp_width(p):
     '''parameters_exp : width EQUALS NUMBER'''
     
     module["width"] = p[3]
     
-    print('parameters width:')
+    # print('parameters width:')
 
 def p_set_architecture(p):
     '''set_architecture : ARCHITECTURE COLON arch_expresions'''
     
-    print("p_set_architecture")
+    # print("p_set_architecture")
  
     # Orden importante ?¿
 def p_architecture_expresions(p):
     '''arch_expresions : arch_expresion
                       | arch_expresion arch_expresions'''
                       
-    print("p_arch_expresionss")
+    # print("p_arch_expresionss")
                        
 def p_arch_expresion(p):
     '''arch_expresion : node_exp
                       | edge_exp
                       | connect_exp'''
      
-    print("p_arch_expresion")
+    # print("p_arch_expresion")
             
 #De momento es obligatorio expresar la anchura al crear un nodo instanciando una axi_module
 def p_new_node(p):
@@ -248,9 +248,9 @@ def p_new_node(p):
     #Aqui es donde leo la anchura por defecto si no hay ninguna: -- Meter w= 0 para que se
     # reconozca como default al crear el nodo
     
-    module["node_dict"][p[2]] = {"node_type" : p[4], "width": p[6]}
+    module["nodes"][p[2]] = {"node_type" : p[4], "width": p[6]}
 
-    print("p_new_node")
+    # print("p_new_node")
     
                        
 def p_new_edge(p):
@@ -259,10 +259,9 @@ def p_new_edge(p):
     #Aqui es donde leo la anchura por defecto si no hay ninguna: -- Meter w= 0 para que se
     # reconozca como default al crear la arista
     
-    module["edge_dict"][p[2]] = p[4]
+    module["edges"][p[2]] = p[4]
     
-    print("p_new_edge")
-    #Creo un objeto(?) arista con la anchura indicada. Tiene la entrada y salida por definir
+    # print("p_new_edge")
 
 def p_connect_outport(p):
     'connect_exp : connect LPAREN ID OUT_PORT COMA ID RPAREN'
@@ -272,13 +271,12 @@ def p_connect_outport(p):
     edge_id = p[6] #Posible problema: que llamen a una arista sourceN o sinkN
 
   
-    if p[3] in module["conn_dict"]:
-        module["conn_dict"][p[3]].update({port_name: edge_id}) 
+    if p[3] in module["connexions"]:
+        module["connexions"][p[3]].update({port_name: edge_id}) 
     else:
-        module["conn_dict"][p[3]] = {port_name: edge_id}
-    # module["conn_dict"][p[3]]={p[4]: p[6]}
+        module["connexions"][p[3]] = {port_name: edge_id}
     
-    print("p_connect_outport")
+    # print("p_connect_outport")
     
 def p_connect_inport(p):
     'connect_exp : connect LPAREN ID COMA ID IN_PORT RPAREN'
@@ -287,12 +285,12 @@ def p_connect_inport(p):
     port_name = "input_" + p[6][3:]
     edge_id = p[3] #Posible problema: que llamen a una arista sourceN o sinkN
     
-    if p[5] in module["conn_dict"]:
-        module["conn_dict"][p[5]].update({port_name: edge_id}) 
+    if p[5] in module["connexions"]:
+        module["connexions"][p[5]].update({port_name: edge_id}) 
     else:
-        module["conn_dict"][p[5]] = {port_name: edge_id}
+        module["connexions"][p[5]] = {port_name: edge_id}
         
-    print("p_connect_inport")
+    # print("p_connect_inport")
     
 def p_connect_module_input(p):
     'connect_exp : connect LPAREN this IN_PORT COMA ID IN_PORT RPAREN'  
@@ -301,34 +299,29 @@ def p_connect_module_input(p):
     
     # p[6] = node_id
     port_name = "input_" + p[7][3:]
-    source_name = "source" + p[4][3:] 
+    source_name = "source_" + p[4][3:] 
     
     
-    if p[6] in module["conn_dict"]:
-        module["conn_dict"][p[6]].update({port_name: source_name}) 
+    if p[6] in module["connexions"]:
+        module["connexions"][p[6]].update({port_name: source_name}) 
     else:
-        module["conn_dict"][p[6]] = {port_name: source_name}
+        module["connexions"][p[6]] = {port_name: source_name}
     
-    print("p_connect_module_output")
-    #node ID(p[5]) inport = module input
+    # print("p_connect_module_output")
     
 def p_connect_module_output(p):
     'connect_exp : connect LPAREN ID OUT_PORT COMA this OUT_PORT RPAREN'
     
     
-    
-    # p[3] = node_id, p[4] = num_port, sink_name = sink+numport
+    # p[3] = node_id
     port_name = "output_" + p[4][4:]
-    sink_name = "sink" + p[7][4:]
+    sink_name = "sink_" + p[7][4:]
     
-    
-    if p[3] in module["conn_dict"]:
-        module["conn_dict"][p[3]].update({port_name: sink_name}) 
+    if p[3] in module["connexions"]:
+        module["connexions"][p[3]].update({port_name: sink_name}) 
     else:
-        module["conn_dict"][p[3]] = {port_name: sink_name}
+        module["connexions"][p[3]] = {port_name: sink_name}
     
-    print("p_connect_module_imput")
-    #node ID(p[5]) inport = module input    
 
 def p_error(p):
     if p:
@@ -339,6 +332,23 @@ def p_error(p):
 import ply.yacc as yacc
 yacc.yacc(debug=True)
 
+def axiFW_parse(in_file):
+    
+    f = open(in_file, "r")
+    data_read = f.read()
+    yacc.parse(data_read)
+    
+    return module
 
-#Reconocer archivo de entrada .afw como input
-yacc.parse(data)
+    
+    
+    
+    
+
+
+
+
+
+
+
+
